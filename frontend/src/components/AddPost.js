@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+
 import * as API from '../utils/api';
 
 class AddPost extends Component {
