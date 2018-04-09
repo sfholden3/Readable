@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom';
 import * as API from '../utils/api';
 import * as categoriesActionCreators from '../ducks/categories';
 import * as categoryActionCreators from '../ducks/currentCategory';
+import * as postsActionCreators from '../ducks/posts';
 import Posts from '../components/Posts';
 import CategoryButtons from '../components/CategoryButtons';
 
@@ -14,40 +15,35 @@ class MainContainer extends Component {
   static propTypes = {
     fetchCategories: PropTypes.func.isRequired,
     categories: PropTypes.array.isRequired,
-    setCurrentCategory: PropTypes.func.isRequired
-  };
-  state = {
-    posts: []
+    setCurrentCategory: PropTypes.func.isRequired,
+    fetchPosts: PropTypes.func.isRequired,
+    posts: PropTypes.array.isRequired
   };
   componentDidMount() {
-    this.getAllPosts();
+    this.props.fetchPosts();
     this.props.fetchCategories();
   }
-  getAllPosts = () => {
-    API.getAllPosts().then(posts => {
-      this.setState({ posts });
-    });
-  };
 
   render() {
     return (
       <div>
         <h1>This is the App Container</h1>
-        <CategoryButtons categories={this.props.categories} setCurrentCategory={this.props.setCurrentCategory}/>
+        <CategoryButtons categories={this.props.categories} setCurrentCategory={this.props.setCurrentCategory} />
         <div className="add-post">
           <Link to="/AddPost">Add Post</Link>
         </div>
-        <Posts currentCategory={this.props.currentCategory} posts={this.state.posts} />
+        <Posts currentCategory={this.props.currentCategory} posts={this.props.posts} />
       </div>
     );
   }
 }
 
 const mapStateToProps = state => {
-  const { currentCategory, categories } = state;
-  return { 
-    currentCategory, 
-    categories: [...categories] || categories
+  const { currentCategory, categories, posts } = state;
+  return {
+    currentCategory,
+    categories: [...categories],
+    posts: [...posts.posts]
   };
 };
 
@@ -55,7 +51,8 @@ function mapDispatchToProps(dispatch, ownProps) {
   return bindActionCreators(
     {
       ...categoryActionCreators,
-      ...categoriesActionCreators
+      ...categoriesActionCreators,
+      ...postsActionCreators
     },
     dispatch
   );
