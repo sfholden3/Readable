@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Link } from 'react-router-dom';
 
-import * as API from '../utils/api';
 import * as categoriesActionCreators from '../ducks/categories';
 import * as categoryActionCreators from '../ducks/currentCategory';
 import * as postsActionCreators from '../ducks/posts';
@@ -17,7 +16,8 @@ class MainContainer extends Component {
     categories: PropTypes.array.isRequired,
     setCurrentCategory: PropTypes.func.isRequired,
     fetchPosts: PropTypes.func.isRequired,
-    posts: PropTypes.array.isRequired
+    posts: PropTypes.array.isRequired,
+    deletePost: PropTypes.func.isRequired
   };
   componentDidMount() {
     this.props.fetchPosts();
@@ -32,7 +32,7 @@ class MainContainer extends Component {
         <div className="add-post">
           <Link to="/AddPost">Add Post</Link>
         </div>
-        <Posts currentCategory={this.props.currentCategory} posts={this.props.posts} />
+        <Posts currentCategory={this.props.currentCategory} posts={this.props.posts} deletePost={this.props.deletePost}/>
       </div>
     );
   }

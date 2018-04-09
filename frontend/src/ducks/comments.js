@@ -3,6 +3,7 @@ import * as api from '../utils/api';
 //Actions
 export const FETCH_COMMENTS = 'readable/comments/fetchPostComments';
 export const ADD_POST_COMMENT = 'readable/comments/addPostComment';
+export const DELETE_COMMENT = 'readable/comments/deleteComment';
 
 const initialCommentState = {
   comments: []
@@ -18,6 +19,11 @@ export default function comments(state = initialCommentState, action) {
       return {
         ...state,
         comments: [...state.comments, action.payload]
+      };
+    case DELETE_COMMENT:
+      return {
+        ...state,
+        comments: [...state.comments.filter(comment => comment.id !== action.payload)]
       };
     default:
       return state;
@@ -38,10 +44,21 @@ export function addPostComment(comment) {
   };
 }
 
+export function deleteComment(commentId) {
+  return async dispatch => {
+    await api.deleteComment(commentId);
+    dispatch(commentRemoved(commentId));
+  };
+}
+
 function postCommentsFetched(comments) {
   return { type: FETCH_COMMENTS, payload: comments };
 }
 
 function addComment(comment) {
   return { type: ADD_POST_COMMENT, payload: comment };
+}
+
+function commentRemoved(commentId) {
+  return { type: DELETE_COMMENT, payload: commentId };
 }

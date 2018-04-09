@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { Redirect } from 'react-router';
 
 class AddPost extends Component {
   static propTypes = {
@@ -12,7 +13,8 @@ class AddPost extends Component {
       body: '',
       author: '',
       title: '',
-      category: 'none'
+      category: 'none',
+      redirect: false
     };
 
     this.handleChangeBody = this.handleChangeBody.bind(this);
@@ -47,8 +49,14 @@ class AddPost extends Component {
       category: 'react'
     };
     this.props.addPost(post);
+    this.setState({ redirect: true });
   };
   render() {
+    const { redirect } = this.state;
+
+    if (redirect) {
+      return <Redirect to="/" />;
+    }
     let optionItems = this.props.categories.map(category => <option key={category.name}>{category.name}</option>);
     return (
       <div>

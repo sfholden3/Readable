@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import { Redirect } from 'react-router';
 
-import * as API from '../utils/api';
-
-class AddCommentForm extends Component {
+class AddComment extends Component {
   static propTypes = {
     addPostComment: PropTypes.func.isRequired,
     postId: PropTypes.string.isRequired
@@ -13,7 +12,8 @@ class AddCommentForm extends Component {
     super(props);
     this.state = {
       comment: '',
-      author: ''
+      author: '',
+      redirect: false
     };
     this.handleChangeComment = this.handleChangeComment.bind(this);
     this.handleChangeAuthor = this.handleChangeAuthor.bind(this);
@@ -39,8 +39,13 @@ class AddCommentForm extends Component {
       parentId: postId
     };
     this.props.addPostComment(commentObj);
+    this.setState({ redirect: true });
   };
   render() {
+    const { redirect } = this.state;
+    if (redirect) {
+      return <Redirect to={`/post/${this.props.postId}`} />
+    }
     return (
       <div>
         <h1>Add Comment</h1>
@@ -49,7 +54,7 @@ class AddCommentForm extends Component {
             Enter your Name:
             <textarea value={this.state.author} onChange={this.handleChangeAuthor} placeholder="Name" />
           </label>
-          <br/>
+          <br />
           <label>
             Enter Text of Comment:
             <textarea value={this.state.comment} onChange={this.handleChangeComment} placeholder="Comment" />
@@ -62,4 +67,4 @@ class AddCommentForm extends Component {
     );
   }
 }
-export default AddCommentForm;
+export default AddComment;

@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import * as commentsActionCreators from '../ducks/comments';
-import AddCommentForm from '../components/AddCommentForm';
+import AddComment from '../components/AddComment';
 
 class AddCommentContainer extends Component {
   static propTypes = {
@@ -16,7 +16,7 @@ class AddCommentContainer extends Component {
     const { addPostComment } = this.props;
     return (
       <div>
-        <AddCommentForm postId={postId} addPostComment={addPostComment} />
+        <AddComment postId={postId} addPostComment={addPostComment} />
       </div>
     );
   }

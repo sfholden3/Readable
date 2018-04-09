@@ -4,6 +4,7 @@ import * as api from '../utils/api';
 export const FETCH_POSTS = 'readable/posts/fetchPosts';
 export const FETCH_POST = 'readable/posts/fetchPost';
 export const ADD_POST = 'readable/posts/addPost';
+export const DELETE_POST = 'readable/posts/deletePost';
 
 const initialPostState = {
   posts: [],
@@ -27,7 +28,11 @@ export default function posts(state = initialPostState, action) {
         ...state,
         posts: [...state.posts, action.payload]
       };
-
+    case DELETE_POST:
+      return {
+        ...state,
+        posts: [...state.posts.filter(post => post.id !== action.payload)]
+      };
     default:
       return state;
   }
@@ -53,6 +58,12 @@ export function addPost(post) {
     dispatch(postAdded(post));
   };
 }
+export function deletePost(postId) {
+  return async dispatch => {
+    await api.deletePost(postId);
+    dispatch(postDeleted(postId));
+  };
+}
 
 function postsFetched(posts) {
   return { type: FETCH_POSTS, payload: posts };
@@ -64,4 +75,8 @@ function postFetched(post) {
 
 function postAdded(post) {
   return { type: ADD_POST, payload: post };
+}
+
+function postDeleted(postId) {
+  return { type: DELETE_POST, payload: postId };
 }
