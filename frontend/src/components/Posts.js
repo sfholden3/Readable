@@ -19,6 +19,9 @@ class Posts extends Component {
         {filteredPosts.map(post => (
           <div key={post.id}>
             <button onClick={() => this.props.deletePost(post.id)}>Delete</button>
+            <Link to={`/EditPost/${post.id}`}>
+              Edit Post
+            </Link>
             <Link to={`/post/${post.id}`}>
               <h1>{post.title}</h1>
             </Link>

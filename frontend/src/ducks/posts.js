@@ -5,6 +5,8 @@ export const FETCH_POSTS = 'readable/posts/fetchPosts';
 export const FETCH_POST = 'readable/posts/fetchPost';
 export const ADD_POST = 'readable/posts/addPost';
 export const DELETE_POST = 'readable/posts/deletePost';
+export const EDIT_POST = 'readable/posts/editPost';
+export const EDIT_THIS_POST = 'readable/posts/editThisPost';
 
 const initialPostState = {
   posts: [],
@@ -33,6 +35,25 @@ export default function posts(state = initialPostState, action) {
         ...state,
         posts: [...state.posts.filter(post => post.id !== action.payload)]
       };
+    case EDIT_POST:
+      return {
+        ...state,
+        posts: [
+          ...state.posts, {[action.payload.id]: {
+            title: action.payload.title,
+            body: action.payload.title
+          }} 
+        ]
+      };
+    case EDIT_THIS_POST:
+      return {
+        ...state,
+        post: {
+          ...state.post,
+          title: action.payload.title,
+          body: action.payload.body
+        }
+      };
     default:
       return state;
   }
@@ -52,16 +73,30 @@ export function fetchPost(postId) {
   };
 }
 
+export function editThisPost(post) {
+  return async dispatch => {
+    dispatch(thisPostEdited(post));
+  };
+}
+
 export function addPost(post) {
   return async dispatch => {
     await api.addPost(post);
     dispatch(postAdded(post));
   };
 }
+
 export function deletePost(postId) {
   return async dispatch => {
     await api.deletePost(postId);
     dispatch(postDeleted(postId));
+  };
+}
+
+export function editPost(post) {
+  return async dispatch => {
+    await api.editPost(post);
+    dispatch(postEdited(post));
   };
 }
 
@@ -79,4 +114,12 @@ function postAdded(post) {
 
 function postDeleted(postId) {
   return { type: DELETE_POST, payload: postId };
+}
+
+function postEdited(post) {
+  return { type: EDIT_POST, payload: post };
+}
+
+function thisPostEdited(post) {
+  return { type: EDIT_THIS_POST, payload: post };
 }

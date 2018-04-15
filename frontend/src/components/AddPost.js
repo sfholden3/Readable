@@ -37,7 +37,7 @@ class AddPost extends Component {
   }
 
   addPost = text => {
-    const { body, author, title } = this.state;
+    const { body, author, title, category } = this.state;
     const post = {
       id: Math.random()
         .toString(36)
@@ -46,7 +46,7 @@ class AddPost extends Component {
       title: title,
       body: body,
       author: author ? author : 'anonymous',
-      category: 'react'
+      category: category ? category : 'none'
     };
     this.props.addPost(post);
     this.setState({ redirect: true });
