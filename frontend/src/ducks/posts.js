@@ -36,13 +36,16 @@ export default function posts(state = initialPostState, action) {
         posts: [...state.posts.filter(post => post.id !== action.payload)]
       };
     case EDIT_POST:
+      const updatedPosts = state.posts.map(post => {
+        if (post.id === action.payload.id) {
+          return { ...post, ...action.payload };
+        }
+        return post;
+      });
       return {
         ...state,
         posts: [
-          ...state.posts, {[action.payload.id]: {
-            title: action.payload.title,
-            body: action.payload.title
-          }} 
+          ...updatedPosts
         ]
       };
     case EDIT_THIS_POST:

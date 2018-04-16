@@ -61,7 +61,7 @@ class EditPost extends Component {
     }
     return (
       <div>
-        <h1>Add Post</h1>
+        <h1>Edit Post</h1>
         <form onSubmit={this.editPost}>
           <label>
             Enter your Name:

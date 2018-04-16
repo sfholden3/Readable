@@ -7,6 +7,7 @@ import EditPostContainer from '../containers/EditPostContainer';
 import MainContainer from '../containers/MainContainer';
 import PostDetailContainer from '../containers/PostDetailContainer';
 import AddCommentContainer from '../containers/AddCommentContainer';
+import EditCommentContainer from '../containers/EditCommentContainer';
 
 class App extends Component {
   render() {
@@ -17,6 +18,7 @@ class App extends Component {
         <Route path="/EditPost/:postId" component={EditPostContainer} />
         <Route path="/post/:id" component={PostDetailContainer} />
         <Route path="/AddComment/:postId" component={AddCommentContainer} />
+        <Route path="/EditComment/:commentId" component={EditCommentContainer} />
       </div>
     );
   }
