@@ -22,8 +22,8 @@ class PostDetailContainer extends Component {
   };
   componentDidMount() {
     const postId = this.props.match.params.id;
-    this.props.fetchPosts();
-    this.props.fetchPost(postId);
+    this.props.fetchPostComments(postId);
+    this.props.fetchPost(postId)
   }
 
   render() {

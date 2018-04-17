@@ -46,6 +46,7 @@ class PostDetail extends Component {
         <div>{post.timestamp}</div>
         <div>{post.category}</div>
         <div>{post.body}</div>
+        <div>{post.commentCount} Comment(s)</div>
       </div>
     );
   }
