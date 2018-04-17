@@ -7,6 +7,7 @@ export const ADD_POST = 'readable/posts/addPost';
 export const DELETE_POST = 'readable/posts/deletePost';
 export const EDIT_POST = 'readable/posts/editPost';
 export const EDIT_THIS_POST = 'readable/posts/editThisPost';
+export const UPDATE_POST_SCORE = 'readable/posts/postVote';
 
 const initialPostState = {
   posts: [],
@@ -44,9 +45,7 @@ export default function posts(state = initialPostState, action) {
       });
       return {
         ...state,
-        posts: [
-          ...updatedPosts
-        ]
+        posts: [...updatedPosts]
       };
     case EDIT_THIS_POST:
       return {
@@ -55,6 +54,14 @@ export default function posts(state = initialPostState, action) {
           ...state.post,
           title: action.payload.title,
           body: action.payload.body
+        }
+      };
+    case UPDATE_POST_SCORE:
+      return {
+        ...state,
+        post: {
+          ...state.post,
+          voteScore: action.payload.voteScore
         }
       };
     default:
@@ -103,6 +110,14 @@ export function editPost(post) {
   };
 }
 
+export function postVote(postId, option) {
+  return async dispatch => {
+    const post = await api.postVote(postId, option);
+    dispatch(postEdited(post));
+    dispatch(updatePostScore(post));
+  };
+}
+
 function postsFetched(posts) {
   return { type: FETCH_POSTS, payload: posts };
 }
@@ -125,4 +140,8 @@ function postEdited(post) {
 
 function thisPostEdited(post) {
   return { type: EDIT_THIS_POST, payload: post };
+}
+
+function updatePostScore(post) {
+  return { type: UPDATE_POST_SCORE, payload: post };
 }

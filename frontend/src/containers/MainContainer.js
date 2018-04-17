@@ -17,7 +17,8 @@ class MainContainer extends Component {
     setCurrentCategory: PropTypes.func.isRequired,
     fetchPosts: PropTypes.func.isRequired,
     posts: PropTypes.array.isRequired,
-    deletePost: PropTypes.func.isRequired
+    deletePost: PropTypes.func.isRequired,
+    postVote: PropTypes.func.isRequired
   };
   componentDidMount() {
     this.props.fetchPosts();
@@ -32,7 +33,7 @@ class MainContainer extends Component {
         <div className="add-post">
           <Link to="/AddPost">Add Post</Link>
         </div>
-        <Posts currentCategory={this.props.currentCategory} posts={this.props.posts} deletePost={this.props.deletePost}/>
+        <Posts currentCategory={this.props.currentCategory} posts={this.props.posts} deletePost={this.props.deletePost} postVote={this.props.postVote}/>
       </div>
     );
   }

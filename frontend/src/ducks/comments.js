@@ -32,20 +32,18 @@ export default function comments(state = initialCommentState, action) {
     case FETCH_COMMENT:
       return {
         ...state,
-        comment: {...action.payload}
+        comment: { ...action.payload }
       };
     case EDIT_COMMENT:
       const updatedComments = state.comments.map(comment => {
-        if(comment.id === action.payload.id){
-          return {...comment, ...action.payload}
+        if (comment.id === action.payload.id) {
+          return { ...comment, ...action.payload };
         }
-        return comment
+        return comment;
       });
       return {
         ...state,
-        comments: [
-          ...updatedComments
-        ]
+        comments: [...updatedComments]
       };
     case EDIT_THIS_COMMENT:
       return {
@@ -101,6 +99,12 @@ export function editThisComment(comment) {
   };
 }
 
+export function commentVote(commentId, option) {
+  return async dispatch => {
+    const comment = await api.commentVote(commentId, option);
+    dispatch(commentEdited(comment));
+  };
+}
 
 function postCommentsFetched(comments) {
   return { type: FETCH_COMMENTS, payload: comments };

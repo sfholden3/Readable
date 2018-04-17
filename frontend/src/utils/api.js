@@ -61,8 +61,8 @@ export const addPost = post =>
     .then(res => res.json())
     .then(data => data);
 
-export const postVote = vote =>
-  fetch(`${APP_URL}/posts/${vote}`, {
+export const postVote = (postId, vote) =>
+  fetch(`${APP_URL}/posts/${postId}`, {
     method: 'POST',
     headers: {
       ...headers,
@@ -75,8 +75,8 @@ export const postVote = vote =>
     .then(res => res.json())
     .then(data => data);
 
-export const commentVote = vote =>
-  fetch(`${APP_URL}/comments/${vote}`, {
+export const commentVote = (commentId, vote) =>
+  fetch(`${APP_URL}/comments/${commentId}`, {
     method: 'POST',
     headers: {
       ...headers,

@@ -16,16 +16,18 @@ class PostDetailContainer extends Component {
     fetchPostComments: PropTypes.func.isRequired,
     comments: PropTypes.array.isRequired,
     deletePost: PropTypes.func.isRequired,
-    deleteComment: PropTypes.func.isRequired
+    deleteComment: PropTypes.func.isRequired,
+    commentVote: PropTypes.func.isRequired,
+    postVote: PropTypes.func.isRequired
   };
   componentDidMount() {
     const postId = this.props.match.params.id;
+    this.props.fetchPosts();
     this.props.fetchPost(postId);
-    this.props.fetchPostComments(postId);
   }
 
   render() {
-    const { post, comments, deletePost, deleteComment } = this.props;
+    const { post, comments, deletePost, deleteComment, commentVote, postVote } = this.props;
     return (
       <div>
         <Link to={'/'}>Back to Home</Link>
@@ -33,9 +35,9 @@ class PostDetailContainer extends Component {
           <h1>Add Comment</h1>
         </Link>
         <h1>THE POST</h1>
-        <PostDetail post={post} deletePost={deletePost}/>
+        <PostDetail post={post} postVote={postVote} deletePost={deletePost}/>
         <h1>THE COMMENTS</h1>
-        <PostComments comments={comments} deleteComment={deleteComment} />
+        <PostComments comments={comments} deleteComment={deleteComment} commentVote={commentVote}/>
       </div>
     );
   }
