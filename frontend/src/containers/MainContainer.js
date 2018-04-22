@@ -9,6 +9,7 @@ import * as categoryActionCreators from '../ducks/currentCategory';
 import * as postsActionCreators from '../ducks/posts';
 import Posts from '../components/Posts';
 import CategoryButtons from '../components/CategoryButtons';
+import '../App.css';
 
 class MainContainer extends Component {
   static propTypes = {
@@ -31,10 +32,10 @@ class MainContainer extends Component {
   render() {
     return (
       <div>
-        <h1>This is the App Container</h1>
-        <CategoryButtons categories={this.props.categories} />
-        <div className="add-post">
-          <Link to="/AddPost">Add Post</Link>
+        <h1>Readable</h1>
+        <CategoryButtons categories={this.props.categories} currentCategory={this.props.currentCategory} />
+        <div>
+          <Link className="button" to="/AddPost">Add Post</Link>
         </div>
         <Posts
           currentCategory={this.props.currentCategory}
