@@ -5,6 +5,7 @@ import { bindActionCreators } from 'redux';
 import { Link } from 'react-router-dom';
 
 import * as commentsActionCreators from '../ducks/comments';
+import * as currentCategoryActionCreators from '../ducks/currentCategory';
 import EditComment from '../components/EditComment';
 
 class EditCommentContainer extends Component {
@@ -12,11 +13,13 @@ class EditCommentContainer extends Component {
     editComment: PropTypes.func.isRequired,
     comment: PropTypes.object.isRequired,
     fetchComment: PropTypes.func.isRequired,
-    editThisComment: PropTypes.func.isRequired
+    editThisComment: PropTypes.func.isRequired,
+    currentCategory: PropTypes.string.isRequired
   };
   componentDidMount() {
     const commentId = this.props.match.params.commentId;
     this.props.fetchComment(commentId);
+    this.props.currentCategory();
   }
 
   render() {
@@ -31,8 +34,9 @@ class EditCommentContainer extends Component {
 }
 
 const mapStateToProps = state => {
-  const { comments } = state;
+  const { comments, currentCategory } = state;
   return {
+    currentCategory,
     comments: [...comments.comments],
     comment: {...comments.comment}
   };
@@ -41,7 +45,8 @@ const mapStateToProps = state => {
 function mapDispatchToProps(dispatch, ownProps) {
   return bindActionCreators(
     {
-      ...commentsActionCreators
+      ...commentsActionCreators,
+      ...currentCategoryActionCreators
     },
     dispatch
   );

@@ -4,14 +4,14 @@ import { Redirect } from 'react-router';
 import { Link } from 'react-router-dom';
 
 class PostDetail extends Component {
-  state = {
-    redirect: false
-  };
   static propTypes = {
     post: PropTypes.object.isRequired,
     deletePost: PropTypes.func.isRequired,
     postVote: PropTypes.func.isRequired
   };
+  state = {
+    redirect: false
+  }
   upVote = postId => {
     const { postVote } = this.props;
     postVote(postId, 'upVote');
@@ -28,6 +28,7 @@ class PostDetail extends Component {
       return <Redirect to="/" />;
     }
     return (
+      
       <div>
         <button
           onClick={() => {
@@ -47,7 +48,7 @@ class PostDetail extends Component {
         <div>{post.category}</div>
         <div>{post.body}</div>
         <div>{post.commentCount} Comment(s)</div>
-      </div>
+      </div>  
     );
   }
 }

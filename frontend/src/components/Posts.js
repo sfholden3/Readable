@@ -9,6 +9,9 @@ class Posts extends Component {
     deletePost: PropTypes.func.isRequired,
     postVote: PropTypes.func.isRequired
   };
+  state = {
+    sortByVote: false
+  };
   upVote = postId => {
     const { postVote } = this.props;
     postVote(postId, 'upVote');
@@ -17,14 +20,24 @@ class Posts extends Component {
     const { postVote } = this.props;
     postVote(postId, 'downVote');
   };
+  sortByVote = () => {
+    this.setState({sortByVote: true})
+  }
   render() {
     const filteredPosts =
       this.props.currentCategory !== 'none'
         ? this.props.posts.filter(post => post.category === this.props.currentCategory)
         : this.props.posts;
+    if(this.state.sortByVote){
+      filteredPosts.sort(function(a, b){return a.voteScore - b.voteScore});
+    }
+
     return (
       <div>
         <h1>{this.props.currentCategory}</h1>
+        <div className="sort">
+          <button onClick={this.sortByVote}>Sort By Vote</button>
+        </div>
         {filteredPosts.map(post => (
           <div key={post.id} style={{ borderStyle: 'solid' }}>
             <br />
@@ -34,10 +47,10 @@ class Posts extends Component {
             <Link to={`/EditPost/${post.id}`}>Edit Post</Link>
             <div>{post.commentCount} Comments</div>
             <div>{post.voteScore} Votes</div>
-            <Link to={`/post/${post.id}`}>
+            <Link to={`/${post.category}/${post.id}`}>
               <h1>{post.title}</h1>
             </Link>
-            <h4 key={post.id}>{post.body}</h4>
+            <h4>{post.author}</h4>
             <br />
           </div>
         ))}

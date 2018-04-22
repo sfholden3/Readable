@@ -7,7 +7,8 @@ class EditComment extends Component {
   static propTypes = {
     editComment: PropTypes.func.isRequired,
     comment: PropTypes.object.isRequired,
-    editThisComment: PropTypes.func.isRequired
+    editThisComment: PropTypes.func.isRequired,
+    currentCategory: PropTypes.string.isRequired
   };
   constructor(props) {
     super(props);
@@ -42,9 +43,9 @@ class EditComment extends Component {
   };
   render() {
     const { redirect } = this.state;
-    const { comment } = this.props;
+    const { comment, currentCategory } = this.props;
     if (redirect) {
-      return <Redirect to={`/post/${comment.parentId}`} />;
+      return <Redirect to={`/${currentCategory}/${comment.parentId}`} />;
     }
     return (
       <div>

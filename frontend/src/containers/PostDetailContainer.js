@@ -8,6 +8,7 @@ import * as postsActionCreators from '../ducks/posts';
 import * as commentsActionCreators from '../ducks/comments';
 import PostDetail from '../components/PostDetail';
 import PostComments from '../components/PostComments';
+import NotFound from '../components/NotFound';
 
 class PostDetailContainer extends Component {
   static propTypes = {
@@ -23,21 +24,28 @@ class PostDetailContainer extends Component {
   componentDidMount() {
     const postId = this.props.match.params.id;
     this.props.fetchPostComments(postId);
-    this.props.fetchPost(postId)
+    this.props.fetchPost(postId);
   }
 
   render() {
     const { post, comments, deletePost, deleteComment, commentVote, postVote } = this.props;
     return (
       <div>
-        <Link to={'/'}>Back to Home</Link>
-        <Link to={`/AddComment/${post.id}`}>
-          <h1>Add Comment</h1>
-        </Link>
-        <h1>THE POST</h1>
-        <PostDetail post={post} postVote={postVote} deletePost={deletePost}/>
-        <h1>THE COMMENTS</h1>
-        <PostComments comments={comments} deleteComment={deleteComment} commentVote={commentVote}/>
+        {typeof post.id !== 'undefined' && (
+          <div>
+            <Link to={'/'}>Back to Home</Link>
+            <Link to={`/AddComment/${post.id}`}>
+              <h1>Add Comment</h1>
+            </Link>
+            <h1>THE POST</h1>
+            <PostDetail post={post} postVote={postVote} deletePost={deletePost} />
+            <h1>THE COMMENTS</h1>
+            <PostComments comments={comments} deleteComment={deleteComment} commentVote={commentVote} />
+          </div>
+        )}
+        {typeof post.id === 'undefined' && (
+          <NotFound />
+        )}
       </div>
     );
   }

@@ -21,19 +21,27 @@ class MainContainer extends Component {
     postVote: PropTypes.func.isRequired
   };
   componentDidMount() {
+    this.props.setCurrentCategory(this.props.match.params.category || 'none');
     this.props.fetchPosts();
     this.props.fetchCategories();
   }
-
+  componentWillReceiveProps(nextProps) {
+    nextProps.setCurrentCategory(nextProps.match.params.category || 'none');
+  }
   render() {
     return (
       <div>
         <h1>This is the App Container</h1>
-        <CategoryButtons categories={this.props.categories} setCurrentCategory={this.props.setCurrentCategory} />
+        <CategoryButtons categories={this.props.categories} />
         <div className="add-post">
           <Link to="/AddPost">Add Post</Link>
         </div>
-        <Posts currentCategory={this.props.currentCategory} posts={this.props.posts} deletePost={this.props.deletePost} postVote={this.props.postVote}/>
+        <Posts
+          currentCategory={this.props.currentCategory}
+          posts={this.props.posts}
+          deletePost={this.props.deletePost}
+          postVote={this.props.postVote}
+        />
       </div>
     );
   }
