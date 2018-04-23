@@ -26,8 +26,8 @@ class EditComment extends Component {
       body: event.target.value,
       author: comment.author,
       parentId: comment.parentId
-    })
-  };
+    });
+  }
 
   editComment = () => {
     const { comment, editComment } = this.props;
@@ -63,7 +63,7 @@ class EditComment extends Component {
 
           <input type="submit" value="Submit" />
         </form>
-        <Link to={`/post/${comment.parentId}`}>Back to post</Link>
+        <Link to={`/${currentCategory}/${comment.parentId}`}>Back to post</Link>
       </div>
     );
   }

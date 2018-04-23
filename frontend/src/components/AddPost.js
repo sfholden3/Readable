@@ -13,7 +13,7 @@ class AddPost extends Component {
       body: '',
       author: '',
       title: '',
-      category: 'none',
+      category: 'react',
       redirect: false
     };
 
@@ -46,7 +46,7 @@ class AddPost extends Component {
       title: title,
       body: body,
       author: author ? author : 'anonymous',
-      category: category ? category : 'none'
+      category: category
     };
     this.props.addPost(post);
     this.setState({ redirect: true });
