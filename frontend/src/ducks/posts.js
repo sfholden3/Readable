@@ -36,7 +36,7 @@ export default function posts(state = initialPostState, action) {
         ...state,
         posts: [...state.posts.filter(post => post.id !== action.payload)]
       };
-    case EDIT_POST:
+    case EDIT_POST: {
       const updatedPosts = state.posts.map(post => {
         if (post.id === action.payload.id) {
           return { ...post, ...action.payload };
@@ -47,7 +47,8 @@ export default function posts(state = initialPostState, action) {
         ...state,
         posts: [...updatedPosts]
       };
-    case EDIT_THIS_POST:
+    }
+    case EDIT_THIS_POST: {
       return {
         ...state,
         post: {
@@ -56,7 +57,8 @@ export default function posts(state = initialPostState, action) {
           body: action.payload.body
         }
       };
-    case UPDATE_POST_SCORE:
+    }
+    case UPDATE_POST_SCORE: {
       return {
         ...state,
         post: {
@@ -64,6 +66,7 @@ export default function posts(state = initialPostState, action) {
           voteScore: action.payload.voteScore
         }
       };
+    }
     default:
       return state;
   }

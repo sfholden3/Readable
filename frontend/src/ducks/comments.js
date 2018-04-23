@@ -15,26 +15,30 @@ const initialCommentState = {
 
 export default function comments(state = initialCommentState, action) {
   switch (action.type) {
-    case FETCH_COMMENTS:
+    case FETCH_COMMENTS: {
       return {
         comments: [...action.payload]
       };
-    case ADD_POST_COMMENT:
+    }
+    case ADD_POST_COMMENT: {
       return {
         ...state,
         comments: [...state.comments, action.payload]
       };
-    case DELETE_COMMENT:
+    }
+    case DELETE_COMMENT: {
       return {
         ...state,
         comments: [...state.comments.filter(comment => comment.id !== action.payload)]
       };
-    case FETCH_COMMENT:
+    }
+    case FETCH_COMMENT: {
       return {
         ...state,
         comment: { ...action.payload }
       };
-    case EDIT_COMMENT:
+    }
+    case EDIT_COMMENT: {
       const updatedComments = state.comments.map(comment => {
         if (comment.id === action.payload.id) {
           return { ...comment, ...action.payload };
@@ -45,7 +49,8 @@ export default function comments(state = initialCommentState, action) {
         ...state,
         comments: [...updatedComments]
       };
-    case EDIT_THIS_COMMENT:
+    }
+    case EDIT_THIS_COMMENT: {
       return {
         ...state,
         comment: {
@@ -53,8 +58,10 @@ export default function comments(state = initialCommentState, action) {
           body: action.payload.body
         }
       };
-    default:
+    }
+    default: {
       return state;
+    }
   }
 }
 

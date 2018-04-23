@@ -43,15 +43,12 @@ class EditCommentContainer extends Component {
   }
 }
 
-const mapStateToProps = state => {
-  const { comments, currentCategory, posts } = state;
-  return {
-    currentCategory,
-    comments: [...comments.comments],
-    comment: { ...comments.comment },
-    post: { ...posts.post }
-  };
-};
+const mapStateToProps = ({ comments, currentCategory, posts }) => ({
+  currentCategory,
+  comments: [...comments.comments],
+  comment: { ...comments.comment },
+  post: { ...posts.post }
+});
 
 function mapDispatchToProps(dispatch, ownProps) {
   return bindActionCreators(

@@ -2,14 +2,15 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { Redirect } from 'react-router';
+import * as helpers from '../utils/helpers';
 
 class AddComment extends Component {
   static propTypes = {
     addPostComment: PropTypes.func.isRequired,
     postId: PropTypes.string.isRequired
   };
-  constructor(props) {
-    super(props);
+  constructor() {
+    super();
     this.state = {
       comment: '',
       author: '',
@@ -30,9 +31,7 @@ class AddComment extends Component {
     const { comment, author } = this.state;
     const { postId } = this.props;
     const commentObj = {
-      id: Math.random()
-        .toString(36)
-        .substr(-8),
+      id: helpers.getNewId(),
       timestamp: Date.now(),
       body: comment,
       author: author ? author : 'anonymous',
@@ -44,7 +43,7 @@ class AddComment extends Component {
   render() {
     const { redirect } = this.state;
     if (redirect) {
-      return <Redirect to={`/post/${this.props.postId}`} />
+      return <Redirect to={`/post/${this.props.postId}`} />;
     }
     return (
       <div>

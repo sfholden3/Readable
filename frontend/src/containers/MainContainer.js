@@ -35,7 +35,9 @@ class MainContainer extends Component {
         <h1>Readable</h1>
         <CategoryButtons categories={this.props.categories} currentCategory={this.props.currentCategory} />
         <div>
-          <Link className="button" to="/AddPost">Add Post</Link>
+          <Link className="button" to="/AddPost">
+            Add Post
+          </Link>
         </div>
         <Posts
           currentCategory={this.props.currentCategory}
@@ -48,14 +50,11 @@ class MainContainer extends Component {
   }
 }
 
-const mapStateToProps = state => {
-  const { currentCategory, categories, posts } = state;
-  return {
-    currentCategory,
-    categories: [...categories],
-    posts: [...posts.posts]
-  };
-};
+const mapStateToProps = ({ currentCategory, categories, posts }) => ({
+  currentCategory,
+  categories: [...categories],
+  posts: [...posts.posts]
+});
 
 function mapDispatchToProps(dispatch, ownProps) {
   return bindActionCreators(

@@ -27,12 +27,9 @@ class AddPostContainer extends Component {
   }
 }
 
-const mapStateToProps = state => {
-  const { categories } = state;
-  return {
-    categories: [...categories]
-  };
-};
+const mapStateToProps = ({ categories }) => ({
+  categories: [...categories]
+});
 
 function mapDispatchToProps(dispatch, ownProps) {
   return bindActionCreators(

@@ -22,7 +22,7 @@ class EditComment extends Component {
     const { comment, editThisComment } = this.props;
     editThisComment({
       id: comment.id,
-      timestamp: comment.id,
+      timestamp: Date.now(),
       body: event.target.value,
       author: comment.author,
       parentId: comment.parentId

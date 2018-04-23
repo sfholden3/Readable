@@ -30,13 +30,10 @@ class EditPostContainer extends Component {
   }
 }
 
-const mapStateToProps = state => {
-  const { posts } = state;
-  return {
-    posts: [...posts.posts],
-    post: { ...posts.post }
-  };
-};
+const mapStateToProps = ({ posts }) => ({
+  posts: [...posts.posts],
+  post: { ...posts.post }
+});
 
 function mapDispatchToProps(dispatch, ownProps) {
   return bindActionCreators(

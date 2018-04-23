@@ -43,21 +43,16 @@ class PostDetailContainer extends Component {
             <PostComments comments={comments} deleteComment={deleteComment} commentVote={commentVote} />
           </div>
         )}
-        {typeof post.id === 'undefined' && (
-          <NotFound />
-        )}
+        {typeof post.id === 'undefined' && <NotFound />}
       </div>
     );
   }
 }
 
-const mapStateToProps = state => {
-  const { posts, comments } = state;
-  return {
-    comments: [...comments.comments],
-    post: { ...posts.post }
-  };
-};
+const mapStateToProps = ({ posts, comments }) => ({
+  comments: [...comments.comments],
+  post: { ...posts.post }
+});
 
 function mapDispatchToProps(dispatch, ownProps) {
   return bindActionCreators(

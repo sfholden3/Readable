@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Redirect } from 'react-router';
+import * as helpers from '../utils/helpers';
 
 class AddPost extends Component {
   static propTypes = {
@@ -39,9 +40,7 @@ class AddPost extends Component {
   addPost = text => {
     const { body, author, title, category } = this.state;
     const post = {
-      id: Math.random()
-        .toString(36)
-        .substr(-8),
+      id: helpers.getNewId(),
       timestamp: Date.now(),
       title: title,
       body: body,

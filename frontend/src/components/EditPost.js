@@ -18,25 +18,29 @@ class EditPost extends Component {
   }
 
   handleChangeBody(event) {
-    const { post } = this.props;
+    const {
+      post: { id, title, author, category }
+    } = this.props;
     this.props.editThisPost({
-      id: post.id,
-      timestamp: post.timestamp,
-      title: post.title,
+      id,
+      timestamp: Date.now(),
+      title,
       body: event.target.value,
-      author: post.author,
-      category: post.category
+      author,
+      category
     });
   }
   handleChangeTitle(event) {
-    const { post } = this.props;
+    const {
+      post: { id, body, author, category }
+    } = this.props;
     this.props.editThisPost({
-      id: post.id,
-      timestamp: post.timestamp,
+      id,
+      timestamp: Date.now(),
       title: event.target.value,
-      body: post.body,
-      author: post.author,
-      category: post.category
+      body,
+      author,
+      category
     });
   }
 

@@ -22,12 +22,9 @@ class AddCommentContainer extends Component {
   }
 }
 
-const mapStateToProps = state => {
-  const { comments } = state;
-  return {
-    comments: [...comments.comments]
-  };
-};
+const mapStateToProps = ({ comments }) => ({
+  comments: [...comments.comments]
+});
 
 function mapDispatchToProps(dispatch, ownProps) {
   return bindActionCreators(
